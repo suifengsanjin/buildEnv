@@ -1,0 +1,27 @@
+'''bash
+mkdir ./haiwen/install
+cd ./haiwen/install
+wget http://seafile-downloads.oss-cn-shanghai.aliyuncs.com/seafile-server_7.0.5_x86-64.tar.gz
+tar -zxvf seafile-server_7.0.5_x86-64.tar.gz -C ../
+yum install python python-setuptools MySQL-python python-urllib3 python-ldap mariadb_server -y
+systemctl enable mariadb_server
+systemctl start mariadb_server
+mysql_secure_installation
+cd ../seafile-server-latest
+##添加默认端口通过规则
+firewall-cmd --zone=public --add-port=8000/tcp --permanent
+firewall-cmd --zone=public --add-port=8082/tcp --permanent
+
+firewall-cmd --reload
+./seafile.sh start
+./seahub.sh start
+'''
+简单搭建到此为止
+如果需要修改http监听端口，需要修改haiwen/conf/gunicorn.conf文件bind字段，同步修改haiwen/conf/ccent.conf文件SERVICE_URL字段
+
+apache下启动seahub 和 https
+yum install httpd mod_ssl openssl -y
+systemctl enable httpd
+systemctl start httpd
+firewall-cmd --zone=public --add-service=httpd --permanent
+firewall-cmd --reload
