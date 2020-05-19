@@ -1,0 +1,3 @@
+WORK BASE ON QEMU/KVM LIBVIRT
+CENTOS7
+yum install -y libvirt
