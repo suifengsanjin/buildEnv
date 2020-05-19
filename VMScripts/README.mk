@@ -1,5 +1,5 @@
 WORK BASE ON QEMU/KVM LIBVIRT
 CENTOS7
-``bash
+```bash
 yum install -y libvirt
-``
+```
